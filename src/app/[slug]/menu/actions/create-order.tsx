@@ -3,7 +3,8 @@
 import { db } from "@/lib/prisma";
 import { ConsumptionMethod } from "@prisma/client";
 import { removeCpfPunctuation } from "../helpers/cpf";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
+
 
 interface CreateOrderInput {
   customerName: string;
@@ -59,4 +60,9 @@ export const createOrder = async (input: CreateOrderInput) => {
       restaurantId: restaurant.id,
     },
   });
+
+  redirect(`/${input.slug}/orders`);
+
+
+
 };
