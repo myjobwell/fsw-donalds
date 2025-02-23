@@ -4,7 +4,7 @@ import { createContext, ReactNode, use, useState } from "react";
 
 // Esse picl é como se fosse um dto que tras apenas os dados que preciso se eu deixar tudo apenas Product 
 // ele vai pegar todos os dados com o pick eu faco uma especie de seleção de dados
-interface CartProducts extends Pick<Product, "id" | "name" | "price" | "imageUrl"> {
+export interface CartProducts extends Pick<Product, "id" | "name" | "price" | "imageUrl"> {
   quantity: number;
 }
 
