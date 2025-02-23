@@ -6,6 +6,7 @@ import React from "react";
 
 import { formatCurrency } from "@/helpers/format-currency";
 
+
 interface ProductsProps {
   products: Product[];
 }
@@ -17,6 +18,7 @@ const Products = ({ products }: ProductsProps) => {
 
   const searchParams = useSearchParams();
   const consumptionMethod = searchParams.get("ConsumptionMethod");
+
 
   return (
     <div className="space-y-3 px-5 py-3">
