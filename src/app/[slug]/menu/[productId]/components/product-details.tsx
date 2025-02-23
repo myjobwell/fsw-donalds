@@ -7,14 +7,6 @@ import { Button } from "@/components/ui/button";
 import { ChefHatIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CartContext } from "../../contexts/cart";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import CartSheet from "../../components/cart-sheet";
 
 interface ProductDetailsProps {
