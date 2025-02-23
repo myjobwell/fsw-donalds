@@ -5,7 +5,7 @@ import Image from "next/image";
 import { formatCurrency } from "@/helpers/format-currency";
 import { Button } from "@/components/ui/button";
 import { ChefHatIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -56,7 +56,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         {/* NOME  */}
         <h2 className="mt-1 text-xl font-semibold">{product.name}</h2>
         {/* PREÇO E QUANTIDADE */}
-        <div className="flex items-center justify-between">
+        <div className="mt-3 flex items-center justify-between">
           <h3 className="text-xl font-semibold">
             {formatCurrency(product.price)}
           </h3>
@@ -79,19 +79,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           </div>
         </div>
 
-        {/* SOBRE */}
-        {/* <div className="mt-6 space-y-3">
-          <h4 className="font-semibold">Sobre</h4>
-          <p className="text-sn text-muted-foreground">{product.description}</p>
-        </div> */}
-
-        {/* INGREDIENTES */}
-        {/* <div className="mt-6 space-y-3">
-          <div className="flex items-center gap-1">
-            <ChefHatIcon />
-            <h4 className="font-semibold">Ingredientes</h4>
-          </div>
-        </div> */}
+        {/*AREA DINAMICA SCROLL */}
         <ScrollArea className="h-full">
           {/* SOBRE */}
           <div className="mt-6 space-y-3">

@@ -23,11 +23,16 @@ const ProductPage = async ({ params }: ProductPageProps) => {
         select: {
           name: true,
           avatarImageUrl: true,
+          slug: true,
         },
       },
     },
   });
   if (!product) {
+    return notFound();
+  }
+
+  if (product.restaurant.slug.toUpperCase() !== slug.toUpperCase()) {
     return notFound();
   }
 
