@@ -10,7 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import React from "react";
+import React, { useContext, useTransition } from "react";
 import { z } from "zod";
 import { validateCPF } from "../helpers/cpf";
 import { useForm } from "react-hook-form";
@@ -25,6 +25,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PatternFormat } from "react-number-format";
+import { createOrder } from "../actions/create-order";
+import { useParams, useSearchParams } from "next/navigation";
+import { ConsumptionMethod } from "@prisma/client";
+import { CartContext } from "../contexts/cart";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
+import { Loader2Icon } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, {
@@ -43,24 +50,56 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-const FinishOrderButton = () => {
+interface FinishOrderDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
+  const { slug } = useParams<{ slug: string }>();
+  const { products } = useContext(CartContext);
+  const [isPending, startTransition] = useTransition();
+
+  const searchParams = useSearchParams();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       cpf: "",
     },
+    shouldUnregister: true,
   });
 
-  const onSubmit = (data: FormSchema) => {
-    return console.log({ data });
+  const onSubmit = async (data: FormSchema) => {
+    try {
+      const consumptionMethod = searchParams.get(
+        "consumptionMethod",
+      ) as ConsumptionMethod;
+ startTransition( async () => {
+
+  await createOrder({
+    consumptionMethod,
+    customerCpf: data.cpf,
+    customerName: data.name,
+    products,
+    slug,
+  });
+  onOpenChange(false);
+  toast.success("Pedido finalizado com sucesso!")
+ }) 
+      
+     
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div>
-      <Drawer>
+      <Drawer open={open} onOpenChange={onOpenChange}>
         <DrawerTrigger asChild>
-          <Button className="w-full rounded-full">Finalizar Pedido</Button>
+          {/* <Button className="w-full rounded-full">Finalizar Pedido</Button> */}
         </DrawerTrigger>
         <DrawerContent>
           <DrawerHeader>
@@ -117,7 +156,9 @@ const FinishOrderButton = () => {
                     type="submit"
                     variant="destructive"
                     className="rounded-full"
+                    disabled={isPending}
                   >
+                    {isPending && <Loader2Icon className="animate-spin"/>}
                     Finalizar
                   </Button>
                   <DrawerClose asChild>
@@ -135,4 +176,4 @@ const FinishOrderButton = () => {
   );
 };
 
-export default FinishOrderButton;
+export default FinishOrderDialog;
