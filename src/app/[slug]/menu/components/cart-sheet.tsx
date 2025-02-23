@@ -6,6 +6,7 @@ import { privateDecrypt } from 'crypto';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { formatCurrency } from '@/helpers/format-currency';
+import FinishOrderButton from './finsh-order-button';
 
 const CartSheet = () => {
 
@@ -38,7 +39,8 @@ const CartSheet = () => {
 
            </Card>
 
-          <Button className='w-full rounded-full'>Finalizar Pedido</Button>
+          {/* <Button className='w-full rounded-full'>Finalizar Pedido</Button> */}
+          <FinishOrderButton />
            
 
           </div>
