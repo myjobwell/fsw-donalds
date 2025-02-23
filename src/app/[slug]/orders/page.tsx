@@ -1,8 +1,9 @@
 import React from 'react'
-import CpfForm from './componentes/cpf-forms';
-import { isValid } from 'zod';
-import { removeCpfPunctuation, validateCPF } from '../menu/helpers/cpf';
+
 import { db } from '@/lib/prisma';
+
+import { removeCpfPunctuation, validateCPF } from '../menu/helpers/cpf';
+import CpfForm from './componentes/cpf-forms';
 import OrderList from './componentes/order-list';
 
 interface OrdersPageProps {

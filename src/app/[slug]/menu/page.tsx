@@ -1,9 +1,10 @@
-import { db } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import React from "react";
-import RestaurantHeader from "./components/header";
+
+import { db } from "@/lib/prisma";
+
 import RestaurantCategories from "./components/categories";
-import { log } from "console";
+import RestaurantHeader from "./components/header";
 
 interface RestaurantMenuPageProps {
   params: Promise<{ slug: string }>;

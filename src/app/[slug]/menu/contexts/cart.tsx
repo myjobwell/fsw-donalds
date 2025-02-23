@@ -1,6 +1,6 @@
 "use client";
 import { Product } from "@prisma/client";
-import { createContext, ReactNode, use, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 // Esse picl é como se fosse um dto que tras apenas os dados que preciso se eu deixar tudo apenas Product 
 // ele vai pegar todos os dados com o pick eu faco uma especie de seleção de dados
